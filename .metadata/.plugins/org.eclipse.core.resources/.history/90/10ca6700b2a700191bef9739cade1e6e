@@ -1,0 +1,40 @@
+package com.sapient.springdemo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.sapient.springdemo.model.Employee;
+import com.sapient.springdemo.service.EmployeeService;
+
+@Controller
+@RequestMapping("employee")
+public class RegisterController {
+	
+
+	@Autowired
+	private EmployeeService employeeService;
+	
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+    
+    
+    @GetMapping("/displayall")
+    public String displayall(){
+    	//System.out.println("hahaha 1");
+         List<Employee> employeelist=employeeService.fetchAllEmployees();
+         for(Employee employee:employeelist)
+         {
+         	System.out.println(employee);
+         }
+         return "display";
+    }
+    
+}
