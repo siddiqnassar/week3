@@ -74,6 +74,7 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\1\spring-mvc-app"/>
 			<item value="C:\Users\raynassa\Documents\spring-mvc-app"/>
 			<item value="C:\springbeansforclone\spring-mvc-app"/>
 			<item value="C:\gitjustforclone\sapient-spring-core"/>
