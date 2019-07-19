@@ -14,4 +14,5 @@ public interface ProductService {
 	    public Product findById(int id);
 
 	    public void deleteProducts(int id);
+	    public Product updateProduct(int id,Product product);
 }

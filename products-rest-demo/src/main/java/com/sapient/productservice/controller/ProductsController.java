@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import com.sapient.productservice.model.Product;
 import com.sapient.productservice.service.ProductService;
 import com.sapient.productservice.service.ProductServiceImpl;
+
+import io.swagger.annotations.ApiOperation;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_XML_VALUE;
@@ -31,6 +35,8 @@ public class ProductsController {
 	
 	private ProductService productService;
 	@GetMapping(value="/",produces = {APPLICATION_JSON_VALUE ,APPLICATION_XML_VALUE})
+	@ApiOperation(value = "Fetch all employees", notes = "API to fetch all the employees")
+    @ResponseStatus(HttpStatus.OK)
 	public List<Product> listAll()
 	{
 		List<Product> product=new ArrayList();
@@ -41,6 +47,7 @@ public class ProductsController {
 		//List<Product> products=Arrays.asList(new Product(1,"cake",(double)60),new Product(2,"carrot",(double)10),new Product(4,"chilly",(double)30));
 
 	}
+	
 	@GetMapping(value = "/{id}",produces= {APPLICATION_JSON_VALUE,APPLICATION_XML_VALUE})
 	public Product findById(@PathVariable("id") int id)
 	{
@@ -54,19 +61,21 @@ public class ProductsController {
 	}
 	
 	@PostMapping(value="/save",consumes= {APPLICATION_JSON_VALUE,APPLICATION_XML_VALUE})
+	 @ResponseStatus(HttpStatus.CREATED)
 	public Product saveProduct(@RequestBody Product product)
 	{
 		productService.saveProduct(product);
 		return product;
 	}
-	/*@PutMapping(value="/update",consumes={APPLICATION_JSON_VALUE,APPLICATION_XML_VALUE})
-	public void updateProduct(@PathVariable("id") int id)
+	@PutMapping(value="/{id}",consumes={APPLICATION_JSON_VALUE,APPLICATION_XML_VALUE})
+	public void updateProduct(@PathVariable("id") int id,@RequestBody Product product)
 	{
-		
+		product.setId(id);
+		productService.updateProduct(id, product);
 		System.out.println("came inside update product");
 	}
 
-	*/
+	
 	@DeleteMapping(value="/delete/{id}", consumes= {APPLICATION_JSON_VALUE,APPLICATION_XML_VALUE})
 	public void deleteProduct(@PathVariable("id") int id)
 	{

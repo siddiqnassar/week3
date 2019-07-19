@@ -3,6 +3,7 @@
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
 			<item value="C:\week3"/>
+			<item value="C:\week3\products-rest-demo\src\main\webapp\WEB-INF\spring-servlet.xml"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -26,16 +27,14 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
-			<item value="com.spring.webdemo"/>
-			<item value="com.sapient.SpringDemo"/>
+			<item value="com.sapient.employeeservice"/>
+			<item value="com.sapient"/>
 		</list>
 		<list key="groupId">
-			<item value="com.spring"/>
 			<item value="com.sapient"/>
 		</list>
 		<list key="artifactId">
-			<item value="webdemo"/>
-			<item value="SpringDemo"/>
+			<item value="employeeservice"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -74,6 +73,10 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\week3\week3codingAssessment"/>
+			<item value="C:\week3\springdemorestful"/>
+			<item value="C:\week3\springdemointernet"/>
+			<item value="C:\week3\SpringDemo"/>
 			<item value="C:\1\spring-mvc-app"/>
 			<item value="C:\Users\raynassa\Documents\spring-mvc-app"/>
 			<item value="C:\springbeansforclone\spring-mvc-app"/>

@@ -34,6 +34,7 @@ public class Product implements Serializable {
 	  @XmlElement
 	  @Column
 	 private double price;
+	
 	public Product(int id, String name, double price) {
 		super();
 		this.id = id;

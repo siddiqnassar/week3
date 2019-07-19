@@ -107,6 +107,19 @@
           <artifactId>hibernate-c3p0</artifactId>
           <version>5.2.11.Final</version>
       </dependency>
+      <!-- spring data jpa -->
+      <dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-jpa</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+
+      <!-- persistence api -->
+      <dependency>
+          <groupId>javax.persistence</groupId>
+          <artifactId>persistence-api</artifactId>
+          <version>RELEASE</version>
+      </dependency>
   </dependencies>
   
 </project>

@@ -3,11 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/data/jpa
+       http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
@@ -15,6 +19,11 @@
        
        <context:component-scan base-package="com.sapient.productservice"/>
 	   <mvc:annotation-driven/>
+	   
+	   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
 	    <bean id="jdbcTemplate"
           class="org.springframework.jdbc.core.JdbcTemplate">
         <constructor-arg ref="dbcpDataSource" />
@@ -30,7 +39,7 @@
         <property name="password" value="Sapient123" />
     </bean>
     <!-- Step 2: Setup Hibernate session factory -->
-    <bean id="sessionFactory"
+   <!-- <bean id="sessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dbcpDataSource" />
         <property name="packagesToScan" value="com.sapient.productservice.model" />
@@ -41,17 +50,42 @@
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
             </props>
         </property>
+    </bean>  --> 
+
+ <jpa:repositories base-package="com.sapient.productservice.repository" entity-manager-factory-ref="emf"/>
+
+    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="packagesToScan" value="com.sapient.productservice.model" />
+        <property name="dataSource" ref="dbcpDataSource" />
+
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</prop>
+            </props>
+        </property>
+
+        <property name="persistenceProvider">
+            <bean class="org.hibernate.jpa.HibernatePersistenceProvider"></bean>
+        </property>
+
     </bean>
 
     <!-- Step 3: Setup Hibernate transaction manager -->
-    <bean id="customTransactionManager"
+   <!-- <bean id="customTransactionManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
+        <property name="sessionFactory" ref="sessionFactory"/> 
+    </bean>-->
     <!-- Step 4: Enable configuration of transactional behavior based on annotations -->
-    <tx:annotation-driven transaction-manager="customTransactionManager" />
+   <!-- <tx:annotation-driven transaction-manager="customTransactionManager" /> -->
 
-    
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager"  id="transactionManager">
+        <property name="dataSource" ref="dbcpDataSource" />
+    </bean>
 
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
